@@ -7,6 +7,9 @@ class ValoGenerator:
         self.base_width = 1650
         self.card_height = 0
         self.card_width = 0
+        self.margin = 20
+        self.margin_ry = 20
+        self.margin_by = 550
 
     def gen_base(self):
         blank = cv2.imread("assets/blank.png")
@@ -16,6 +19,9 @@ class ValoGenerator:
 
         for i in range(5):
             blank = self.paste_red(blank, i*(self.card_width+20))
+
+        for i in range(5):
+            blank = self.paste_blue(blank, i*(self.card_width+20))
         
         cv2.imwrite("blank.png", blank)
 
@@ -26,10 +32,20 @@ class ValoGenerator:
         self.card_height = h
         self.card_width = w
 
-        print(h, w)
-
-        base[20:h+20, x+20:x+w+20] = base[20:h+20, x+20:x+w+20] * (1 - red[:, :, 3:] / 255) + \
+        base[self.margin_ry:h+self.margin_ry, x+self.margin:x+w+self.margin] = base[self.margin_ry:h+self.margin_ry, x+self.margin:x+w+self.margin] * (1 - red[:, :, 3:] / 255) + \
             red[:, :, :3] * (red[:, :, 3:] / 255)
+
+        return base
+
+    def paste_blue(self, base, x):
+        blue = cv2.imread("assets/blueCard.png", -1)
+
+        print(self.card_height)
+
+        base[self.margin_by:self.card_height+self.margin_by, x+self.margin:x+self.card_width+self.margin] = \
+            base[self.margin_by:self.card_height+self.margin_by, x+self.margin:x+self.card_width+self.margin] * \
+            (1 - blue[:, :, 3:] / 255) + \
+            blue[:, :, :3] * (blue[:, :, 3:] / 255)
 
         return base
 
