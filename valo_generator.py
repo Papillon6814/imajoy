@@ -82,6 +82,7 @@ class ValoGenerator:
             blank = self.paste_name(blank, self.bnames[i], i*(self.card_width+20), self.margin_blay)
         
         blank = self.paste_rscore(blank, 13, 950, 485)
+        blank = self.paste_bscore(blank, 12, 700, 485)
         
         cv2.imwrite("blank.png", blank)
 
@@ -162,6 +163,20 @@ class ValoGenerator:
             fontFace=fontPIL,
             fontScale=112,
             color=(99,99,255)
+        )
+
+        return base
+
+    def paste_bscore(self, base, score, x, y):
+        fontPIL = "Noto_Sans_JP/NotoSansJP-Black.otf"
+
+        base = cv2_putText(
+            img = base,
+            text=str(score),
+            org=(x, y),
+            fontFace=fontPIL,
+            fontScale=112,
+            color=(251,153,26)
         )
 
         return base
