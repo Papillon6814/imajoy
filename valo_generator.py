@@ -82,9 +82,10 @@ class ValoGenerator:
             blank = self.paste_name(blank, self.bnames[i], i*(self.card_width+20), self.margin_blay)
         
         blank = self.paste_rscore(blank, 13, 700, 485)
-        blank = self.paste_bscore(blank, 12, 950, 485)
+        blank = self.paste_bscore(blank, 12, 930, 485)
 
         blank = self.paste_rteam_name(blank, "Team Ocoso", 320, 470)
+        blank = self.paste_bteam_name(blank, "God Team AIUEO", 1320, 470)
         
         cv2.imwrite("blank.png", blank)
 
@@ -193,6 +194,20 @@ class ValoGenerator:
             fontFace=fontPIL,
             fontScale=64,
             color=(99,99,255)
+        )
+
+        return base
+
+    def paste_bteam_name(self, base, name, x, y):
+        fontPIL = "Noto_Sans_JP/NotoSansJP-Bold.otf"
+
+        base = cv2_putText(
+            img = base,
+            text=name,
+            org=(x, y),
+            fontFace=fontPIL,
+            fontScale=64,
+            color=(251,153,26)
         )
 
         return base
