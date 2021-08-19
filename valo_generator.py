@@ -11,7 +11,19 @@ class ValoGenerator:
         self.margin_ry = 20
         self.margin_by = 550
         self.margin_rcy = 50
-        self.margin_bcy = 600
+        self.margin_bcy = 580
+        self.characters = [
+            "jet",
+            "sage",
+            "sova",
+            "brim",
+            "cypher",
+            "omen",
+            "yoru",
+            "viper",
+            "skye",
+            "reyna"
+        ]
 
     def gen_base(self):
         blank = cv2.imread("assets/blank.png")
@@ -21,11 +33,11 @@ class ValoGenerator:
 
         for i in range(5):
             blank = self.paste_red(blank, i*(self.card_width+20))
-            blank = self.paste_red_character(blank, "jet", i*(self.card_width+20)+60)
+            blank = self.paste_red_character(blank, self.characters[i], i*(self.card_width+20)+60)
 
         for i in range(5):
             blank = self.paste_blue(blank, i*(self.card_width+20))
-            blank = self.paste_blue_character(blank, "omen", i*(self.card_width+20)+60)
+            blank = self.paste_blue_character(blank, self.characters[i+5], i*(self.card_width+20)+60)
         
         cv2.imwrite("blank.png", blank)
 
