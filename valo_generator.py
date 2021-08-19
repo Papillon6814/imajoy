@@ -33,6 +33,13 @@ class ValoGenerator:
             "Shirou",
             "Gorou"
         ]
+        self.bnames = [
+            "ASDF",
+            "ASDFG",
+            "ASDFGH",
+            "ASDFGHJ",
+            "ASDFGHJK"
+        ]
 
     def gen_base(self):
         blank = cv2.imread("assets/blank.png")
@@ -49,6 +56,7 @@ class ValoGenerator:
             blank = self.paste_blue(blank, i*(self.card_width+20))
             blank = self.paste_blue_character(blank, self.characters[i+5], i*(self.card_width+20)+60)
             blank = self.paste_dark_overlay(blank, i*(self.card_width+20), self.margin_blay)
+            self.paste_name(blank, self.bnames[i], i*(self.card_width+20), self.margin_blay)
         
         cv2.imwrite("blank.png", blank)
 
