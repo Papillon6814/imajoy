@@ -1,5 +1,28 @@
 import cv2
 import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+
+def pil2cv(imgPIL):
+    imgCV_RGB = np.array(imgPIL, dtype = np.uint8)
+    imgCV_BGR = np.array(imgPIL)[:, :, ::-1]
+    return imgCV_BGR
+
+def cv2pil(imgCV):
+    imgCV_RGB = imgCV[:, :, ::-1]
+    imgPIL = Image.fromarray(imgCV_RGB)
+    return imgPIL
+
+def cv2_putText(img, text, org, fontFace, fontScale, color):
+    x, y = org
+    b, g, r = color
+    colorRGB = (r, g, b)
+    imgPIL = cv2pil(img)
+    draw = ImageDraw.Draw(imgPIL)
+    fontPIL = ImageFont.truetype(font = fontFace, size = fontScale)
+    w, h = draw.textsize(text, font = fontPIL)
+    draw.text(xy = (x-(w/2),y-h), text = text, fill = colorRGB, font = fontPIL)
+    imgCV = pil2cv(imgPIL)
+    return imgCV
 
 class ValoGenerator:
     def __init__(self):
@@ -50,13 +73,13 @@ class ValoGenerator:
             blank = self.paste_red(blank, i*(self.card_width+20))
             blank = self.paste_red_character(blank, self.characters[i], i*(self.card_width+20)+60)
             blank = self.paste_dark_overlay(blank, i*(self.card_width+20), self.margin_rlay)
-            self.paste_name(blank, self.rnames[i], i*(self.card_width+20), self.margin_rlay)
+            blank = self.paste_name(blank, self.rnames[i], i*(self.card_width+20), self.margin_rlay)
 
         for i in range(5):
             blank = self.paste_blue(blank, i*(self.card_width+20))
             blank = self.paste_blue_character(blank, self.characters[i+5], i*(self.card_width+20)+60)
             blank = self.paste_dark_overlay(blank, i*(self.card_width+20), self.margin_blay)
-            self.paste_name(blank, self.bnames[i], i*(self.card_width+20), self.margin_blay)
+            blank = self.paste_name(blank, self.bnames[i], i*(self.card_width+20), self.margin_blay)
         
         cv2.imwrite("blank.png", blank)
 
@@ -114,16 +137,28 @@ class ValoGenerator:
         return base
 
     def paste_name(self, base, text, x, y):
-        cv2.putText(
-            base, 
-            text=text, 
-            org=(x+120, y+40), 
-            fontFace=cv2.FONT_HERSHEY_DUPLEX,
-            fontScale=1.0,
-            color=(255, 255, 255),
-            thickness=3,
-            lineType=16
+        fontPIL = "Noto_Sans_JP/NotoSansJP-Bold.otf"
+
+        base = cv2_putText(
+            img = base,
+            text=text,
+            org=(x+170, y+45),
+            fontFace=fontPIL,
+            fontScale=36,
+            color=(255,255,255)
         )
+
+        return base
+        # cv2.putText(
+        #     base, 
+        #     text=text, 
+        #     org=(x+120, y+40), 
+        #     fontFace=cv2.FONT_HERSHEY_DUPLEX,
+        #     fontScale=1.0,
+        #     color=(255, 255, 255),
+        #     thickness=3,
+        #     lineType=16
+        # )
 
 if __name__ == "__main__":
     valo_generator = ValoGenerator()
