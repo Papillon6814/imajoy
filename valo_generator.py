@@ -35,12 +35,14 @@ class ValoGenerator:
         self.margin_by = 550
         self.margin_rcy = 50
         self.margin_bcy = 580
-        self.characters = [
+        self.rcharacters = [
             "jet",
             "sage",
             "sova",
             "brim",
-            "cypher",
+            "cypher"
+        ]
+        self.bcharacters = [
             "omen",
             "yoru",
             "viper",
@@ -63,21 +65,21 @@ class ValoGenerator:
             "ASDFGHJ",
             "ASDFGHJK"
         ]
-        self.rteam_name = "IPU"
-        self.bteam_name = "God Team AIUEO AA"
+        self.rteam_name = "TEAM no NAMAE"
+        self.bteam_name = "TEAM MEI"
 
     def gen_base(self):
         blank = cv2.imread("assets/blank.png")
 
         for i in range(5):
             blank = self.paste_red(blank, i*(self.card_width+20))
-            blank = self.paste_red_character(blank, self.characters[i], i*(self.card_width+20)+60)
+            blank = self.paste_red_character(blank, self.rcharacters[i], i*(self.card_width+20)+60)
             blank = self.paste_dark_overlay(blank, i*(self.card_width+20), self.margin_rlay)
             blank = self.paste_name(blank, self.rnames[i], i*(self.card_width+20), self.margin_rlay)
 
         for i in range(5):
             blank = self.paste_blue(blank, i*(self.card_width+20))
-            blank = self.paste_blue_character(blank, self.characters[i+5], i*(self.card_width+20)+60)
+            blank = self.paste_blue_character(blank, self.bcharacters[i], i*(self.card_width+20)+60)
             blank = self.paste_dark_overlay(blank, i*(self.card_width+20), self.margin_blay)
             blank = self.paste_name(blank, self.bnames[i], i*(self.card_width+20), self.margin_blay)
         
