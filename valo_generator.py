@@ -63,11 +63,11 @@ class ValoGenerator:
             "ASDFGHJ",
             "ASDFGHJK"
         ]
+        self.rteam_name = "IPU"
+        self.bteam_name = "God Team AIUEO AA"
 
     def gen_base(self):
         blank = cv2.imread("assets/blank.png")
-        # blank = np.zeros((self.base_height, self.base_width, 4))
-        # blank += [236, 240, 243, 255][::-1]
 
         for i in range(5):
             blank = self.paste_red(blank, i*(self.card_width+20))
@@ -84,8 +84,8 @@ class ValoGenerator:
         blank = self.paste_rscore(blank, 13, 700, 485)
         blank = self.paste_bscore(blank, 12, 930, 485)
 
-        blank = self.paste_rteam_name(blank, "Team Ocoso", 320, 470)
-        blank = self.paste_bteam_name(blank, "God Team AIUEO", 1320, 470)
+        blank = self.paste_rteam_name(blank, self.rteam_name, 320, 470)
+        blank = self.paste_bteam_name(blank, self.bteam_name, 1320, 470)
         
         cv2.imwrite("blank.png", blank)
 
@@ -95,7 +95,6 @@ class ValoGenerator:
         h, w = red.shape[:2]
         self.card_width = w
         self.card_height = h
-        print("x: {}".format(x))
 
         base[self.margin_ry:h+self.margin_ry, x+self.margin:x+w+self.margin] = base[self.margin_ry:h+self.margin_ry, x+self.margin:x+w+self.margin] * (1 - red[:, :, 3:] / 255) + \
             red[:, :, :3] * (red[:, :, 3:] / 255)
@@ -133,8 +132,6 @@ class ValoGenerator:
     def paste_dark_overlay(self, base, x, y):
         overlay = cv2.imread("assets/darkOverlay.png", -1)
         h, w = overlay.shape[:2]
-        print(overlay.shape)
-        print("{} {}".format(x, base.shape))
 
         base[y:h+y, x+self.margin:x+w+self.margin] = \
             base[y:h+y, x+self.margin:x+w+self.margin] * (1 - overlay[:, :, 3:] / 255) + \
