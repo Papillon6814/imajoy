@@ -26,6 +26,13 @@ class ValoGenerator:
         ]
         self.margin_rlay = 250
         self.margin_blay = 780
+        self.rnames = [
+            "Tarou",
+            "Jirou",
+            "Saburou",
+            "Shirou",
+            "Gorou"
+        ]
 
     def gen_base(self):
         blank = cv2.imread("assets/blank.png")
@@ -36,6 +43,7 @@ class ValoGenerator:
             blank = self.paste_red(blank, i*(self.card_width+20))
             blank = self.paste_red_character(blank, self.characters[i], i*(self.card_width+20)+60)
             blank = self.paste_dark_overlay(blank, i*(self.card_width+20), self.margin_rlay)
+            self.paste_name(blank, self.rnames[i], i*(self.card_width+20), self.margin_rlay)
 
         for i in range(5):
             blank = self.paste_blue(blank, i*(self.card_width+20))
@@ -96,6 +104,18 @@ class ValoGenerator:
             overlay[:, :, :3] * (overlay[:, :, 3:] / 255)
 
         return base
+
+    def paste_name(self, base, text, x, y):
+        cv2.putText(
+            base, 
+            text=text, 
+            org=(x+120, y+40), 
+            fontFace=cv2.FONT_HERSHEY_DUPLEX,
+            fontScale=1.0,
+            color=(255, 255, 255),
+            thickness=3,
+            lineType=16
+        )
 
 if __name__ == "__main__":
     valo_generator = ValoGenerator()
