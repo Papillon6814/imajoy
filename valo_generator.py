@@ -37,36 +37,38 @@ class ValoGenerator:
         self.margin_bcy = 580
         self.rcharacters = [
             "jet",
-            "sage",
-            "sova",
             "brim",
-            "cypher"
+            "sova",
+            "cypher",
+            "sage"
         ]
         self.bcharacters = [
-            "omen",
-            "yoru",
-            "viper",
-            "skye",
-            "reyna"
+            "reyna",
+            "sova",
+            "jet",
+            "killjoy",
+            "omen"
         ]
         self.margin_rlay = 250
         self.margin_blay = 780
         self.rnames = [
-            "Tarou",
-            "Jirou",
-            "Saburou",
-            "Shirou",
-            "Gorou"
+            "Kafka",
+            "yukopon",
+            "TRP2525",
+            "Amane16",
+            "GKNmeisterTM"
         ]
         self.bnames = [
-            "ASDF",
-            "ASDFG",
-            "ASDFGH",
-            "ASDFGHJ",
-            "ASDFGHJK"
+            "けいえる",
+            "sikura",
+            "sRqzx",
+            "KADO4th",
+            "Mashiro"
         ]
-        self.rteam_name = "TEAM no NAMAE"
-        self.bteam_name = "TEAM MEI"
+        self.rteam_name = "IPU"
+        self.bteam_name = "LN"
+        self.rscore = 13
+        self.bscore = 11
 
     def gen_base(self):
         blank = cv2.imread("assets/blank.png")
@@ -83,8 +85,8 @@ class ValoGenerator:
             blank = self.paste_dark_overlay(blank, i*(self.card_width+20), self.margin_blay)
             blank = self.paste_name(blank, self.bnames[i], i*(self.card_width+20), self.margin_blay)
         
-        blank = self.paste_rscore(blank, 13, 700, 485)
-        blank = self.paste_bscore(blank, 12, 930, 485)
+        blank = self.paste_rscore(blank, self.rscore, 700, 485)
+        blank = self.paste_bscore(blank, self.bscore, 930, 485)
 
         blank = self.paste_rteam_name(blank, self.rteam_name, 320, 470)
         blank = self.paste_bteam_name(blank, self.bteam_name, 1320, 470)
