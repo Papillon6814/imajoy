@@ -37,38 +37,38 @@ class ValoGenerator:
         self.margin_bcy = 580
         self.rcharacters = [
             "jet",
-            "brim",
-            "sova",
-            "cypher",
-            "sage"
+            "reyna",
+            "astra",
+            "killjoy",
+            "sova"
         ]
         self.bcharacters = [
-            "reyna",
-            "sova",
             "jet",
+            "phoenix",
+            "astra",
             "killjoy",
-            "omen"
+            "sova"
         ]
         self.margin_rlay = 250
         self.margin_blay = 780
         self.rnames = [
-            "Kafka",
-            "yukopon",
-            "TRP2525",
-            "Amane16",
-            "GKNmeisterTM"
+            "moca",
+            "MkxlElf",
+            "Mashiro",
+            "AxiA",
+            "sRqzx"
         ]
         self.bnames = [
-            "けいえる",
-            "sikura",
-            "sRqzx",
-            "KADO4th",
-            "Mashiro"
+            "SnowYukiWhite",
+            "tapazo",
+            "NJack",
+            "Orca",
+            "zonge"
         ]
-        self.rteam_name = "IPU"
-        self.bteam_name = "LN"
+        self.rteam_name = "LN"
+        self.bteam_name = "AG"
         self.rscore = 13
-        self.bscore = 11
+        self.bscore = 7
 
     def gen_base(self):
         blank = cv2.imread("assets/blank.png")
